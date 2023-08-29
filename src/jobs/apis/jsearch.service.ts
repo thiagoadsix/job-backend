@@ -4,8 +4,9 @@ import { AxiosResponse } from 'axios';
 import { catchError, lastValueFrom, map } from 'rxjs';
 
 import {
-  JSearchApiContractRequest,
-  JSearchApiContractResponse,
+  JobDetailsApiContractResponse,
+  SearchApiContractRequest,
+  SearchApiContractResponse,
 } from './contracts';
 
 @Injectable()
@@ -15,18 +16,46 @@ export class JSearchApi {
   }
 
   async search(
-    input: JSearchApiContractRequest,
-  ): Promise<JSearchApiContractResponse> {
+    input: SearchApiContractRequest,
+  ): Promise<SearchApiContractResponse> {
     const request = this.httpService
-      .get<JSearchApiContractResponse>(
-        'https://jsearch.p.rapidapi.com/search',
+      .get<SearchApiContractResponse>('https://jsearch.p.rapidapi.com/search', {
+        params: {
+          ...input,
+        },
+      })
+      .pipe(map((res: AxiosResponse<SearchApiContractResponse>) => res.data))
+      .pipe(
+        catchError((error) => {
+          console.error({ error });
+          throw new BadRequestException(
+            'Erro ao fazer a requisição para a API JSearch.',
+          );
+        }),
+      );
+
+    const response = await lastValueFrom(request);
+
+    return response;
+  }
+
+  async jobDetails(
+    id: string,
+    extendedPublisherDetails: boolean,
+  ): Promise<JobDetailsApiContractResponse> {
+    const request = this.httpService
+      .get<JobDetailsApiContractResponse>(
+        'https://jsearch.p.rapidapi.com/job-details',
         {
           params: {
-            ...input,
+            job_id: id,
+            extended_publisher_details: extendedPublisherDetails,
           },
         },
       )
-      .pipe(map((res: AxiosResponse<JSearchApiContractResponse>) => res.data))
+      .pipe(
+        map((res: AxiosResponse<JobDetailsApiContractResponse>) => res.data),
+      )
       .pipe(
         catchError((error) => {
           console.error({ error });

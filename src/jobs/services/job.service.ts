@@ -3,6 +3,7 @@ import { JSearchApi } from '../apis/jsearch.service';
 import {
   FindJobsServiceContractRequest,
   FindJobsServiceContractResponse,
+  GetJobByIdServiceContractResponse,
 } from './contracts';
 import { JobMapper } from './job.mapper';
 
@@ -29,5 +30,14 @@ export class JobService {
     });
 
     return JobMapper.toFindJobs(jobs);
+  }
+
+  async getJobById(
+    id: string,
+    extendedPublisherDetails: boolean,
+  ): Promise<GetJobByIdServiceContractResponse> {
+    const job = await this.jsearchApi.jobDetails(id, extendedPublisherDetails);
+
+    return JobMapper.toGetJob(job);
   }
 }
