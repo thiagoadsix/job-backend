@@ -1,0 +1,47 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum EmploymentTypes {
+  fulltime
+  contractor
+  partime
+  intern
+}
+
+enum JobRequirements {
+  under_three_years_experience
+  more_than_three_years_experience
+  no_experience
+  no_degree
+}
+
+enum DatePosted {
+  all
+  today
+  three_days
+  week
+  month
+}
+
+model filters {
+  id               String           @id @default(uuid())
+  title            String
+  remote_jobs_only Boolean?
+  country          String?
+  language         String?
+  employment_types EmploymentTypes?
+  job_requirements JobRequirements?
+  date_posted      DatePosted?
+  created_at       DateTime         @default(now())
+  updated_at       DateTime         @updatedAt
+  deleted_at       DateTime?
+}

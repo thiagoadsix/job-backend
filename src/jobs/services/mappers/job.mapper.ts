@@ -1,11 +1,11 @@
 import {
   JobDetailsApiContractResponse,
   SearchApiContractResponse,
-} from '../apis/contracts';
+} from '../../apis/contracts';
 import {
   FindJobsServiceContractResponse,
   GetJobByIdServiceContractResponse,
-} from './contracts';
+} from '../contracts';
 
 export class JobMapper {
   static toFindJobs(

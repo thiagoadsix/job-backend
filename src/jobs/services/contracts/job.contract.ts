@@ -4,7 +4,7 @@ export interface FindJobsServiceContractRequest {
   numPages?: number;
   datePosted?: 'all' | 'today' | '3days' | 'week' | 'month';
   remoteJobsOnly?: boolean;
-  employmentRequirements?: 'FULLTIME' | 'CONTRACTOR' | 'PARTTIME' | 'INTERN';
+  employmentTypes?: 'FULLTIME' | 'CONTRACTOR' | 'PARTTIME' | 'INTERN';
   jobRequirements?:
     | 'under3yearsExperience'
     | 'moreThan3yearsExperience'
