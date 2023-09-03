@@ -4,7 +4,7 @@ export interface SearchApiContractRequest {
   num_pages?: number;
   date_posted?: 'all' | 'today' | '3days' | 'week' | 'month';
   remote_jobs_only?: boolean;
-  employment_requirements?: 'FULLTIME' | 'CONTRACTOR' | 'PARTTIME' | 'INTERN';
+  employment_types?: 'FULLTIME' | 'CONTRACTOR' | 'PARTTIME' | 'INTERN';
   job_requirements?:
     | 'under3yearsExperience'
     | 'moreThan3yearsExperience'

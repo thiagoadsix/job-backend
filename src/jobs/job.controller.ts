@@ -1,7 +1,9 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 
 import { JobService } from './services/job.service';
 import {
+  CreateFilterContractRequest,
+  CreateFilterContractResponse,
   FindJobsServiceContractRequest,
   FindJobsServiceContractResponse,
   GetJobByIdServiceContractResponse,
@@ -33,5 +35,12 @@ export class JobController {
     );
 
     return response;
+  }
+
+  @Post('filters')
+  async createFilter(
+    @Body() data: CreateFilterContractRequest,
+  ): Promise<CreateFilterContractResponse> {
+    return await this.jobService.createFilter(data);
   }
 }

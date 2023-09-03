@@ -5,6 +5,7 @@ import { ConfigModule } from '@nestjs/config';
 import { JobController } from './job.controller';
 import { JobService } from './services/job.service';
 import { JSearchApi } from './apis/jsearch.service';
+import { PrismaModule } from 'src/prisma/prisma.module';
 
 @Module({
   imports: [
@@ -15,8 +16,9 @@ import { JSearchApi } from './apis/jsearch.service';
         'X-RapidAPI-Host': 'jsearch.p.rapidapi.com',
       },
     }),
+    PrismaModule,
   ],
   controllers: [JobController],
-  providers: [JobService, JSearchApi],
+  providers: [PrismaModule, JobService, JSearchApi],
 })
 export class JobModule {}
