@@ -1,5 +1,3 @@
-// prisma/seed.ts
-
 import { PrismaClient } from '@prisma/client';
 import { v4 as uuid } from 'uuid';
 
@@ -23,7 +21,20 @@ async function main() {
     },
   });
 
-  console.log({ filter });
+  const user = await prisma.users.create({
+    data: {
+      email: 'john.doe@example.com',
+      name: 'John Doe',
+    },
+  });
+
+  const job = await prisma.jobs.create({
+    data: {
+      title: 'Software Engineer Senior',
+    },
+  });
+
+  console.log({ filter, user, job });
 }
 
 main()
