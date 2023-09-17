@@ -25,4 +25,34 @@ export class ApplicationService {
 
     return ApplicationMapper.toCreateApplication(application);
   }
+
+  async acceptApplication(
+    id: string,
+  ): Promise<CreateApplicationContractResponse> {
+    const application = await this.prismaService.applications.update({
+      where: {
+        id,
+      },
+      data: {
+        status: 'accepted',
+      },
+    });
+
+    return ApplicationMapper.toCreateApplication(application);
+  }
+
+  async rejectApplication(
+    id: string,
+  ): Promise<CreateApplicationContractResponse> {
+    const application = await this.prismaService.applications.update({
+      where: {
+        id,
+      },
+      data: {
+        status: 'rejected',
+      },
+    });
+
+    return ApplicationMapper.toCreateApplication(application);
+  }
 }
