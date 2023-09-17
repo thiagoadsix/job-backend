@@ -32,6 +32,12 @@ enum DatePosted {
   month
 }
 
+enum ApplicationStatus {
+  pending
+  accepted
+  rejected
+}
+
 model filters {
   id               String           @id @default(uuid())
   title            String
@@ -44,4 +50,36 @@ model filters {
   created_at       DateTime         @default(now())
   updated_at       DateTime         @updatedAt
   deleted_at       DateTime?
+}
+
+model users {
+  id           String         @id @default(uuid())
+  email        String         @unique
+  name         String
+  applications applications[]
+  created_at   DateTime       @default(now())
+  updated_at   DateTime       @updatedAt
+  deleted_at   DateTime?
+}
+
+model jobs {
+  id           String         @id @default(uuid())
+  title        String
+  applications applications[]
+  created_at   DateTime       @default(now())
+  updated_at   DateTime       @updatedAt
+  deleted_at   DateTime?
+}
+
+model applications {
+  id         String            @id @default(uuid())
+  status     ApplicationStatus @default(pending)
+  applied_at DateTime          @default(now())
+  user       users             @relation(fields: [user_id], references: [id])
+  user_id    String
+  job        jobs              @relation(fields: [job_id], references: [id])
+  job_id     String
+  created_at DateTime          @default(now())
+  updated_at DateTime          @updatedAt
+  deleted_at DateTime?
 }
