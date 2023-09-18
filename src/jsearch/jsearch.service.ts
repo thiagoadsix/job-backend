@@ -10,7 +10,7 @@ import {
 } from './contracts';
 
 @Injectable()
-export class JSearchApi {
+export class JsearchService {
   constructor(private readonly httpService: HttpService) {
     this.httpService = httpService;
   }

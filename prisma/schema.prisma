@@ -63,12 +63,26 @@ model users {
 }
 
 model jobs {
-  id           String         @id @default(uuid())
-  title        String
-  applications applications[]
-  created_at   DateTime       @default(now())
-  updated_at   DateTime       @updatedAt
-  deleted_at   DateTime?
+  id               String           @id @default(uuid())
+  job_id           String?
+  title            String?
+  employer_name    String?
+  employer_logo    String?
+  employer_website String?
+  description      String?
+  employment_type  EmploymentTypes?
+  apply_link       String?
+  is_remote        Boolean?
+  city             String?
+  state            String?
+  country          String?
+  posted_at        DateTime?
+  min_salary       Int?
+  max_salary       Int?
+  applications     applications[]
+  created_at       DateTime         @default(now())
+  updated_at       DateTime         @updatedAt
+  deleted_at       DateTime?
 }
 
 model applications {

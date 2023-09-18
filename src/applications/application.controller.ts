@@ -2,8 +2,8 @@ import { Body, Controller, Param, Patch, Post } from '@nestjs/common';
 
 import { ApplicationService } from './services/application.service';
 import {
-  CreateApplicationContractRequest,
-  CreateApplicationContractResponse,
+  ApplyApplicationContractRequest,
+  ApplyApplicationContractResponse,
 } from './services/contracts';
 
 @Controller('applications')
@@ -13,23 +13,23 @@ export class ApplicationController {
   }
 
   @Post()
-  async createApplication(
-    @Body() data: CreateApplicationContractRequest,
-  ): Promise<CreateApplicationContractResponse> {
-    return await this.applicationService.createApplication(data);
+  async apply(
+    @Body() data: ApplyApplicationContractRequest,
+  ): Promise<ApplyApplicationContractResponse> {
+    return await this.applicationService.apply(data);
   }
 
   @Patch(':id/accept')
-  async acceptApplication(
+  async accept(
     @Param('id') id: string,
-  ): Promise<CreateApplicationContractResponse> {
-    return await this.applicationService.acceptApplication(id);
+  ): Promise<ApplyApplicationContractResponse> {
+    return await this.applicationService.accept(id);
   }
 
   @Patch(':id/reject')
-  async rejectApplication(
+  async reject(
     @Param('id') id: string,
-  ): Promise<CreateApplicationContractResponse> {
-    return await this.applicationService.rejectApplication(id);
+  ): Promise<ApplyApplicationContractResponse> {
+    return await this.applicationService.reject(id);
   }
 }
