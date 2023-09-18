@@ -1,0 +1,15 @@
+-- AlterTable
+ALTER TABLE "jobs" ADD COLUMN     "apply_link" TEXT,
+ADD COLUMN     "city" TEXT,
+ADD COLUMN     "country" TEXT,
+ADD COLUMN     "description" TEXT,
+ADD COLUMN     "employer_logo" TEXT,
+ADD COLUMN     "employer_name" TEXT,
+ADD COLUMN     "employer_website" TEXT,
+ADD COLUMN     "employment_type" "EmploymentTypes",
+ADD COLUMN     "is_remote" BOOLEAN,
+ADD COLUMN     "max_salary" INTEGER,
+ADD COLUMN     "min_salary" INTEGER,
+ADD COLUMN     "posted_at" TIMESTAMP(3),
+ADD COLUMN     "state" TEXT,
+ALTER COLUMN "title" DROP NOT NULL;

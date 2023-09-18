@@ -1,7 +1,8 @@
 import {
   JobDetailsApiContractResponse,
   SearchApiContractResponse,
-} from '../../apis/contracts';
+} from 'src/jsearch/contracts';
+
 import {
   FindJobsServiceContractResponse,
   GetJobByIdServiceContractResponse,

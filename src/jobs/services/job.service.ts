@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
 
-import { JSearchApi } from '../apis/jsearch.service';
+import { PrismaService } from 'src/prisma/prisma.service';
+import { JsearchService } from 'src/jsearch/jsearch.service';
 
 import {
   CreateFilterContractRequest,
@@ -15,10 +15,10 @@ import { FilterMapper, JobMapper } from './mappers';
 @Injectable()
 export class JobService {
   constructor(
-    private readonly jsearchApi: JSearchApi,
+    private readonly jsearchService: JsearchService,
     private readonly prismaService: PrismaService,
   ) {
-    this.jsearchApi = jsearchApi;
+    this.jsearchService = jsearchService;
     this.prismaService = prismaService;
   }
 
@@ -27,7 +27,7 @@ export class JobService {
   async findJobs(
     input: FindJobsServiceContractRequest,
   ): Promise<Array<FindJobsServiceContractResponse>> {
-    const jobs = await this.jsearchApi.search({
+    const jobs = await this.jsearchService.search({
       query: input.query,
       page: input?.page,
       num_pages: input?.numPages,
@@ -47,7 +47,10 @@ export class JobService {
     id: string,
     extendedPublisherDetails: boolean,
   ): Promise<GetJobByIdServiceContractResponse> {
-    const job = await this.jsearchApi.jobDetails(id, extendedPublisherDetails);
+    const job = await this.jsearchService.jobDetails(
+      id,
+      extendedPublisherDetails,
+    );
 
     return JobMapper.toGetJob(job);
   }
